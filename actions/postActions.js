@@ -19,6 +19,21 @@ export async function getAllPosts() {
   }
 }
 
+export async function getPostById(postId) {
+  try {
+    const post = await Post.findById(postId);
+    if (!post) {
+      return {
+        message: "Post not found",
+        ok: false,
+      };
+    }
+    return { ...post._doc, _id: post._id.toString() };
+  } catch (error) {
+    throw new Error(error.message || "Failed to get post");
+  }
+}
+
 export async function createPost(data) {
   try {
     const newPost = new Post(data);

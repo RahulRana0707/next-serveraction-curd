@@ -5,17 +5,17 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useTransition } from "react";
 
-export default function PostCard({ post }) {
+export default function PostCard({ post,handleDelete }) {
   const { setEditPost } = useMyContext();
   const [isPending, startTransition] = useTransition();
-  const handleDelete = async (id) => {
-    if (window.confirm("Do you want to delete?")) {
-      await deletePost(id);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   if (window.confirm("Do you want to delete?")) {
+  //     await deletePost(id);
+  //   }
+  // };
   return (
     <div>
-      <Link href={"/"}>
+      <Link href={`/post/${post._id}`}>
         <Image
           style={{
             width: "200px !important",
