@@ -6,9 +6,12 @@ import { revalidatePath } from "next/cache";
 
 connectDB();
 
-export async function getAllPosts() {
+export async function getAllPosts(searchParams) {
+  const search = searchParams.search || "";
+  const sort = searchParams.sort || "createdAt";
+
   try {
-    const posts = await Post.find();
+    const posts = await Post.find({ title: { $regex: search } }).sort(sort);
     const newData = posts.map((post) => ({
       ...post._doc,
       _id: post._doc._id.toString(),
